@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CRMMiniAppFE.Models.employeeModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(Convert.ToString(Session["Role"]) == "Admin")
+{ 
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("Create","Employee")" class="btn btn-default"><i class="fa fa-trash"></i> Thêm nhân viên mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaNV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTenNV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTenNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                <a href="@Url.Action("EditEmp","Employee", new { id = item.MaNV})" class="btn btn-primary"><i class="fa fa-trash"></i> Edit</a>
+                <a onclick="Delete(@item.MaNV)" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+}else
+{
+    <h2>Bạn không có quyền quản lý nhân viên</h2>
+}
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        function Delete(id) {
+            alertify.confirm('Localhost','Are you sure you want to delete this employee ?', function () {
+                window.location.href = '@Url.Action("Delete", "Employee")/' + id;
+            },null);
+
+        }
+    </script>
+}

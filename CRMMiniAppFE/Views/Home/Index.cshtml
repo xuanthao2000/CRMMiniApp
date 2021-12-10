@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="container-fluid">
+    <h1 class="mt-4">CRM Mini App</h1>
+    @if (Session["TrangThai"] == null)
+    {
+        <br /><ol class="breadcrumb mb-4" style="margin-top:20px;">
+            <a href="@Url.Action("Index","Login")" class="btn btn-primary"><i class="fa fa-trash"></i> Đăng nhập</a>
+        </ol>
+    }
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Nhân viên</li>
+    </ol>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Khách hàng</li>
+    </ol>
+
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Loại khách hàng</li>
+    </ol>
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Area Chart Example
+                </div>
+                <div class="card-body"><canvas id="myAreaChart" height="40"></canvas></div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    Bar Chart Example
+                </div>
+                <div class="card-body"><canvas id="myBarChart" height="40"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}
